@@ -133,12 +133,13 @@ def doSave(filename,lines):
         save(filename,lines)
 
 
+if __name__ == '__main__':
+    
+    print("title:")
+    inputstr=input()
+    lines=doComment(inputstr)
 
-print("title:")
-inputstr=input()
-lines=doComment(inputstr)
-
-print('file name:')
-inputFileName=input()
-doSave(inputFileName,lines)
-print('ok')
+    print('file name:')
+    inputFileName=input()
+    doSave(inputFileName,lines)
+    print('ok')
