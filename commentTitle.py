@@ -12,6 +12,7 @@
 
 
 import datetime
+import os
 
 date=datetime.datetime.now().strftime('%Y/%m/%d')
 INFO=date+' by DKZ https://davidkingzyb.github.io\n'
@@ -85,7 +86,8 @@ dictionary={
     "-":["          ","          ","   _____  ","  |_____| ","          ","          "],
     "*":["          ","  __  __  ","  \\ \\/ /  ","  /_/\\_\\  ","          ","          "],
     "/":["     __   ","    / /   ","   / /    ","  / /     "," /_/      ","          "],
-    "=":["          ","   _____  ","  |_____| ","   _____  ","  |_____| ","          "]
+    "=":["          ","   _____  ","  |_____| ","   _____  ","  |_____| ","          "],
+    " ":["      ","      ","      ","      ","      ","      "]
 
 }
 
@@ -104,13 +106,13 @@ def save(filename,lines):
     type=filename.split('.')[1]
     
     if type=='js' or type=='ts':
-        comment='//'
-        lineA='/'*len(lines[0])+'////\n'
+        comment='//  '
+        lineA='/'*len(lines[0])+'//////\n'
         lineZ=lineA
     elif type=='py':
-        comment='#'
+        comment='#  '
         lineA='#!/usr/bin/python3\n# -*- coding: UTF-8 -*-\n'+'#'*len(lines[0])+'##\n'
-        lineZ='#'*len(lines[0])+'##\n'
+        lineZ='#'*len(lines[0])+'###\n'
 
     commentTitle=lineA
     for l in lines:
@@ -120,11 +122,23 @@ def save(filename,lines):
     with open(filename,'w') as f:
         f.write(commentTitle)
 
-print("comment:")
+def doSave(filename,lines):
+    if os.path.exists(filename):
+        with open(filename,'r') as f:
+            con=f.read();
+        save(filename,lines)
+        with open(filename,'a') as ff:
+            ff.write(con)
+    else:
+        save(filename,lines)
+
+
+
+print("title:")
 inputstr=input()
 lines=doComment(inputstr)
 
 print('file name:')
 inputFileName=input()
-save(inputFileName,lines) 
+doSave(inputFileName,lines)
 print('ok')
