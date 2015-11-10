@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-# -*- coding: UTF-8 -*-
+# coding: utf-8
 ###################################################################################################
 #                                                               ________                          
 #                                                        _     |__    __| __  _      __           
@@ -46,7 +46,7 @@ dictionary={
     "X":[" __  ____ ","\\  \\/   / "," \\     /  ","  /   /   "," /     \\  ","|___/\\__\\ "],
     "Y":[" __  ____ ","\\  \\/   / "," \\     /  ","  /   /   "," /   /    ","|___/     "],
     "Z":["`_______  ","|___   /  ","   /  /   ","  /  /    "," /  /____ ","/________|"],
-    "a":["         ","         ","  ____   "," /    \\  ","/  /   \\_","\\_______/"],
+    "a":["         ","         ","  ____   "," /    \\  ","/  △  \_","\\_______/"],
     "b":["         ","         "," ___     ","|   |___ ","|  ___  |","|_______|"],
     "c":["         ","         "," ______  ","|   ___| ","|  |____ ","|_______|"],
     "d":["         ","         ","     ___ "," ___|   |","|  ___  |","|_______|"],
@@ -119,15 +119,15 @@ def save(filename,lines):
         commentTitle=commentTitle+comment+l+'\n'
     commentTitle=commentTitle+lineZ+comment+INFO
 
-    with open(filename,'w') as f:
-        f.write(commentTitle)
+    with open(filename,'wb') as f:
+        f.write(commentTitle.encode('utf-8'))
 
 def doSave(filename,lines):
     if os.path.exists(filename):
-        with open(filename,'r') as f:
+        with open(filename,'rb') as f:
             con=f.read();
         save(filename,lines)
-        with open(filename,'a') as ff:
+        with open(filename,'ab') as ff:
             ff.write(con)
     else:
         save(filename,lines)
