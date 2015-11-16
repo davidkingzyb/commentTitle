@@ -107,16 +107,16 @@ def save(filename,lines):
     
     if type=='js' or type=='ts':
         comment='//  '
-        lineA='/'*len(lines[0])+'//////\n'
+        lineA='/'*len(lines[0])+'////////\n'
         lineZ=lineA
     elif type=='py':
         comment='#  '
-        lineA='#!/usr/bin/python3\n# -*- coding: UTF-8 -*-\n'+'#'*len(lines[0])+'##\n'
-        lineZ='#'*len(lines[0])+'###\n'
+        lineA='#!/usr/bin/python3\n# -*- coding: UTF-8 -*-\n'+'#'*len(lines[0])+'######\n'
+        lineZ='#'*len(lines[0])+'######\n'
 
     commentTitle=lineA
     for l in lines:
-        commentTitle=commentTitle+comment+l+'\n'
+        commentTitle=commentTitle+comment+l+'  '+comment+'\n'
     commentTitle=commentTitle+lineZ+comment+INFO
 
     with open(filename,'wb') as f:
