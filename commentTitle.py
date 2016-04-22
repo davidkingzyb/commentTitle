@@ -13,12 +13,151 @@
 
 import datetime
 import os
-
-date=datetime.datetime.now().strftime('%Y/%m/%d')
-INFO=date+' by DKZ https://davidkingzyb.github.io\n'
+import sys
 
 
-dictionary={
+
+TITLE='DKZ'
+AUTHOR='DKZ'
+CONTACT='https://davidkingzyb.github.io'
+LICENSE=''
+DESC=''
+
+DATE=datetime.datetime.now().strftime('%Y/%m/%d')
+YEAR=datetime.datetime.now().strftime('%Y')
+
+HEADDIC={
+    'html':'<!DOSTYPE html>',
+    'py':'# coding: utf-8',
+    '':''
+}
+COMMENTDIC={
+    'html':{'start':'<!--','end':'-->'},
+    'py':{'start':'"""','end':'"""'},
+    'js':{'start':'/*','end':'*/'},
+    'css':{'start':'/*','end':'*/'}
+}
+
+
+
+
+LICENSEMIT="""
+license:MIT
+
+Copyright (c) %(year)s %(author)s
+
+Permission is hereby granted, free of charge, to any person obtaining 
+a copy of this software and associated documentation files (the "Software"), 
+to deal in the Software without restriction, including without limitation 
+the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+and/or sell copies of the Software, and to permit persons to whom the Software 
+is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included 
+in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, 
+INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A 
+PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT 
+HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION 
+OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE 
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+"""
+
+LICENSEBSD="""
+license:BSD
+
+Copyright (c) %(year)s %(author)s
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, 
+are permitted provided that the following conditions are met:
+
+1. Redistributions of source code must retain the above copyright notice, this 
+list of conditions and the following disclaimer.
+
+2. Redistributions in binary form must reproduce the above copyright notice, 
+this list of conditions and the following disclaimer in the documentation 
+and/or other materials provided with the distribution.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE 
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
+    SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF 
+THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+"""
+
+LICENSEAPACHE="""
+license:apache
+
+Copyright %(year)s %(author)s
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+"""
+
+LICENSEGPL="""
+license:GPL
+
+Copyright (C) %(year)s %(author)s
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+"""
+
+LICENSELGPL="""
+license:LGPL
+
+Copyright (C) %(year)s %(author)s
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+"""
+
+LICENSESDIC={
+    'mit':LICENSEMIT,
+    'gpl':LICENSEGPL,
+    'apache':LICENSEAPACHE,
+    'bsd':LICENSEBSD,
+    'lgpl':LICENSELGPL,
+    '':''
+}
+
+FONTCT={
 
     "A":["    __    ","   /  \\   ","  / /\\ \\  "," / /__\\ \\ ","/  ____  \\","__|    |__"],
     "B":[" _______  ","|   _   \\ ","|  |_|  / ","|   _   \\ ","|  |_|   |","|_______/ "],
@@ -117,54 +256,94 @@ dictionary={
 }
 
 
-def doComment(comment):
+def doCT(comment):
     lines = ["", "", "", "", "", ""]
     for x in range(0,6):
         linestr=""
         for c in comment:
-            linestr=linestr+dictionary[c][x]
+            linestr=linestr+FONTCT[c][x]
         lines[x]=linestr
     return lines
 
-
-def save(filename,lines):
-    type=filename.split('.')[1]
-    
-    if type=='js' or type=='ts':
-        comment='//  '
-        lineA='/'*len(lines[0])+'////////\n'
-        lineZ=lineA
-    elif type=='py':
-        comment='#  '
-        lineA='#!/usr/bin/python3\n# -*- coding: UTF-8 -*-\n'+'#'*len(lines[0])+'######\n'
-        lineZ='#'*len(lines[0])+'######\n'
-
-    commentTitle=lineA
-    for l in lines:
-        commentTitle=commentTitle+comment+l+'  '+comment+'\n'
-    commentTitle=commentTitle+lineZ+comment+INFO
-
+def touch(filename,con):
     with open(filename,'wb') as f:
-        f.write(commentTitle.encode('utf-8'))
+        f.write(con.encode('utf-8'))
 
-def doSave(filename,lines):
+def saveCommentTitle(filename,output):
     if os.path.exists(filename):
-        with open(filename,'rb') as f:
-            con=f.read();
-        save(filename,lines)
-        with open(filename,'ab') as ff:
-            ff.write(con)
+        with open(filename,'rb') as oldf:
+            old=oldf.read()
+        touch(filename,output)
+        with open(filename,'ab') as tempf:
+            tempf.write(old)
     else:
-        save(filename,lines)
+        touch(filename,output)
 
+def makeCommentTitle(filename,title,author,contact,license,desc):
+    output=''
+
+    title=title if title!='' else TITLE
+    author=author if author!='' else AUTHOR
+    contact=contact if contact!='' else CONTACT
+    license=license if license!='' else LICENSE
+    licensestr=LICENSESDIC.get(license.lower(),'Copyright (c) %(year)s %(author)s')
+    desc=desc if desc!='' else DESC
+    filetype=filename.split('.')[1]
+    head=HEADDIC.get(filetype,'')
+    commentstart=COMMENTDIC.get(filetype,{'start':'','end':''})['start']
+    commentend=COMMENTDIC.get(filetype,{'start':'','end':''})['end']
+    lines=doCT(title)
+
+
+    output=output+head+'\n'+commentstart+'\n'
+    output=output+licensestr%{'author':author,'year':YEAR}+'\n'
+    output=output+'='*len(lines[0])+'\n'
+    for l in lines:
+        output=output+l+'\n'
+    output=output+'='*len(lines[0])+'\n'
+    output=output+DATE+' by '+author+' '+contact+'\n'
+    output=output+desc+'\n'+commentend
+
+    saveCommentTitle(filename,output)
+
+class fail(Exception):
+    def __init__(self,msg):
+        Exception.__init__(self)
+        self.msg=msg
+
+def main():
+    if len(sys.argv)>1:
+        filename=sys.argv[1]
+        if len(filename.split('.'))!=2:
+            raise fail('fail: file name format error')
+        title=''
+        author=''
+        contact=''
+        license=''
+        desc=''
+    else:
+        print('file name:')
+        filename=raw_input()
+        if len(filename.split('.'))!=2:
+            raise fail('fail: file name format error')
+        print('title:')
+        title=raw_input()
+        print('author:')
+        author=raw_input()
+        print('contact:')
+        contact=raw_input()
+        print('license:')
+        license=raw_input()
+        print('desc:')
+        desc=raw_input()
+    
+    makeCommentTitle(filename,title,author,contact,license,desc)
+        
 
 if __name__ == '__main__':
+    try:
+        main()
+    except fail,e:
+        print(e.msg)
+        
     
-    print("title:")
-    inputstr=input()
-    lines=doComment(inputstr)
-
-    print('file name:')
-    inputFileName=input()
-    doSave(inputFileName,lines)
-    print('ok')

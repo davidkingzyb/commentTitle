@@ -21,16 +21,17 @@ Make a new file with comment title like this
     #  2016/01/14 by DKZ https://davidkingzyb.github.io
 ```
 
-
+And add license(MIT,BSD,GPL,LGPL,apache) in the head
 
 
 ###USE
 ```
 $python commentTitle.py
-title:
-commentTitle
 file name:
 test.py
+...
+
+$python commentTitle.py test.py
 ```
 
 ###windows command
