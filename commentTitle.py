@@ -323,27 +323,29 @@ def main():
         desc=''
     else:
         print('file name:')
-        filename=raw_input()
+        filename=input()
         if len(filename.split('.'))!=2:
             raise fail('fail: file name format error')
         print('title:')
-        title=raw_input()
+        title=input()
         print('author:')
-        author=raw_input()
+        author=input()
         print('contact:')
-        contact=raw_input()
+        contact=input()
         print('license:')
-        license=raw_input()
+        license=input()
         print('desc:')
-        desc=raw_input()
+        desc=input()
     
     makeCommentTitle(filename,title,author,contact,license,desc)
         
 
 if __name__ == '__main__':
+    try: input = raw_input
+    except NameError: pass
     try:
         main()
-    except fail,e:
-        print(e.msg)
+    except fail:
+        print('fail: file name format error')
         
     
