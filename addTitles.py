@@ -16,16 +16,14 @@ import os
 
 files=os.listdir()
 
-def doAddTitles(files,lines):
+def doAddTitles(files):
     for x in files:
         if len(x.split('.'))==2 and x!='commentTitle.py' and x!='addTitles.py':
             if x.split('.')[1]=='py' or x.split('.')[1]=='js' or x.split('.')[1]=='ts':
-                commentTitle.doSave(x,lines)
+                commentTitle.makeCommentTitle(x)
 
 if __name__ == '__main__':
-    print("title:")
-    inputstr=input()
-    lines=commentTitle.doComment(inputstr)
+    
 
-    doAddTitles(files,lines)
+    doAddTitles(files)
     print('ok')

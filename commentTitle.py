@@ -35,7 +35,8 @@ COMMENTDIC={
     'html':{'start':'<!--','end':'-->'},
     'py':{'start':'"""','end':'"""'},
     'js':{'start':'/*','end':'*/'},
-    'css':{'start':'/*','end':'*/'}
+    'css':{'start':'/*','end':'*/'},
+    'ts':{'start':'/*','end':'*/'}
 }
 
 
