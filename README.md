@@ -39,7 +39,7 @@ And add license(MIT,BSD,GPL,LGPL,apache) in the head
 	                                       <How to select Licenses>       2016/4/29 by DKZ
 
 
-###USE
+###Usage
 ```
 $python commentTitle.py
 file name:
