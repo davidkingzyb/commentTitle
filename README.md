@@ -39,24 +39,24 @@ And add license(MIT,BSD,GPL,LGPL,apache) in the head
 	                                       <How to select Licenses>       2016/4/29 by DKZ
 
 
-###Usage
+### Usage
 ```
 $python commentTitle.py
 file name:
 test.py
 ...
 
-$python commentTitle.py test.py
+$python commentTitle.py filename.py -t title -a author -c contact -l license -d desc
 ```
 
-###windows command
+### windows command
 
 PATH + commentTitle.py's path
 
 PATHEXT + ;.py
 
 
-###linux terminal
+### linux terminal
 
 .bashrc +
 

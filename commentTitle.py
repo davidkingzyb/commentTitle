@@ -15,7 +15,7 @@ github: https://github.com/davidkingzyb/commentTitle
 
 import datetime
 import os
-import sys
+import sys,getopt
 
 
 
@@ -324,6 +324,22 @@ def main():
         contact=''
         license=''
         desc=''
+        try:
+            opts,args=getopt.getopt(sys.argv[2:],'t:a:c:l:d:')
+        except getopt.GetoptError:
+            print 'filename.py -t title -a author -c contact -l license -d desc'
+            sys.exit()
+        for opt,arg in opts:
+            if opt=='-t':
+                title=arg
+            elif opt=='-a':
+                author=arg
+            elif opt=='-c':
+                contact=arg
+            elif opt=='-l':
+                license=arg
+            elif opt=='-d':
+                desc=arg
     else:
         print('file name:')
         filename=input()
