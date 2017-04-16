@@ -327,7 +327,7 @@ def main():
         try:
             opts,args=getopt.getopt(sys.argv[2:],'t:a:c:l:d:')
         except getopt.GetoptError:
-            print 'filename.py -t title -a author -c contact -l license -d desc'
+            print('filename.py -t title -a author -c contact -l license -d desc')
             sys.exit()
         for opt,arg in opts:
             if opt=='-t':
